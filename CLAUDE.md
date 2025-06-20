@@ -17,6 +17,34 @@ If you are about to run out of context or end a session:
 - Document any partial progress on incomplete tasks
 - Note any important context that would help the next agent continue your work
 
+## File Management Strategy
+
+To prevent this file from becoming too large:
+
+1. **Active Content Only**: Only keep information that's actively useful
+2. **Archive Regularly**: 
+   - Move completed tasks older than 2 weeks to archive
+   - Archive change history older than 1 month
+   - Create archive files when needed (see below)
+
+3. **Focus on Current Context**:
+   - Keep detailed notes only for active work
+   - Summarize completed work instead of keeping detailed notes
+
+4. **Archiving Process**:
+   - When this file exceeds ~500 lines, it's time to archive
+   - Create dated archive files in the `docs/archives/` directory
+   - Example: `docs/archives/CLAUDE_ARCHIVE_2024_06.md`
+   - Move older completed tasks and change history to the archive
+   - Keep a summary of key archived decisions and changes
+
+5. **Section Size Limits**:
+   - Recently Completed Tasks: Max 10 entries (then archive)
+   - Change History: Max 1 month (then archive)
+   - In-Progress Work Details: Only current tasks
+
+Remember: This file should be a helpful tool, not a bureaucratic burden. Keep it focused on what's needed for current work.
+
 ## Branch Coordination
 
 Current active branches:
@@ -76,34 +104,6 @@ This is a FastAPI-based Python API template with the following key components:
 - Follow PEP 8 style guidelines
 - Document all public functions, classes, and methods
 
-## Adding Features
-
-When adding new features:
-
-1. Start by defining Pydantic schemas for the feature
-2. Add SQL queries if needed
-3. Implement route handlers
-4. Register routes in `routes/__init__.py`
-5. Add tests in `tests/`
-
-## Database Operations
-
-Database operations should:
-
-- Use parameterized queries to prevent SQL injection
-- Be wrapped in transactions when appropriate
-- Use async SQLAlchemy for database access
-- Store SQL in separate files when complex
-
-## Troubleshooting
-
-If you encounter issues:
-
-- Check application logs for errors
-- Verify database connection
-- Ensure environment variables are set correctly
-- Check API documentation at `/docs` endpoint
-
 ## Task Tracking
 
 ### Current Tasks
@@ -132,7 +132,7 @@ If you encounter issues:
 
 ### In-Progress Work Details
 
-*Note to Claude: When a task is complex and in progress, provide details here to help continue the work between sessions.*
+*Note to Claude: When a task is complex and in progress, provide details here to help continue the work between sessions. Remove details once a task is completed.*
 
 Example in-progress task details:
 ```
@@ -146,7 +146,40 @@ Current state:
 - Need to add user registration endpoint
 ```
 
-## Change History
+## Key Decisions & Architecture
+
+*Note to Claude: Keep this section focused and concise. Only include decisions that affect how the code should be written or understood.*
+
+- **Async First**: All I/O operations should be async for scalability
+- **Repository Pattern**: Database access is abstracted through query files
+- **Clean Architecture**: Separation of concerns between layers
+- **Migration Strategy**: Both SQL scripts for direct application and Alembic for versioning
+
+## Current Session Notes
+
+*Note to Claude: Update this section at the beginning and end of each session. Overwrite the previous session notes.*
+
+```
+Session: 2024-06-20
+Branch: main
+Current focus:
+- Setting up project template structure
+- Adding database migration system
+- Improving project documentation
+
+Key context:
+- The database schema is designed to be extendable with custom fields
+- The migration system supports both direct SQL and Alembic approaches
+
+Next steps:
+- Implement user authentication system
+- Add more comprehensive test coverage
+- Create API documentation
+```
+
+## Recent Changes
+
+*Note to Claude: Keep only the last 2-4 weeks of changes here. Older entries should be moved to an archive file.*
 
 ### 2024-06-20
 
@@ -155,62 +188,6 @@ Current state:
 - Added Alembic integration
 - Added Claude Code support files and development configuration
 - Enhanced CLAUDE.md with task tracking, change history, and project context
-
-### Future changes will be logged here...
-
-*Note to Claude: When making significant changes, add an entry here with the date and a bullet list of changes made. If changes are part of a specific task, reference the task.*
-
-## Project Context
-
-### User Preferences
-
-- **Coding Style**: Prefer explicit over implicit; use type annotations
-- **Naming Convention**: snake_case for variables and functions, PascalCase for classes
-- **Documentation**: Docstrings should follow Google style
-- **Testing**: Aim for >80% code coverage; use pytest fixtures for setup
-- **Error Handling**: Use custom exception classes and provide clear error messages
-
-### Domain Knowledge
-
-- **Purpose**: This template serves as a starting point for building Python API services
-- **Primary Use Case**: Backend services with database integration and JSON API endpoints
-- **Key Entities**: 
-  - Users (authentication and authorization)
-  - Projects (top-level organizational structure)
-  - Items (resources that belong to projects)
-
-### Architecture Decisions
-
-- **Async First**: All I/O operations should be async for scalability
-- **Repository Pattern**: Database access is abstracted through query files
-- **Clean Architecture**: Separation of concerns between layers
-- **Migration Strategy**: Both SQL scripts for direct application and Alembic for versioning
-
-*Note to Claude: Update this section as you learn more about the project or when architectural decisions are made. Document the reasoning behind decisions, not just the decisions themselves.*
-
-## Session Continuity Notes
-
-*Note to Claude: Use this section to leave notes for your future self or other agents. Include any context that would be helpful for continuing work on the project.*
-
-Example session note:
-```
-Session: 2024-06-20
-Branch: main
-Work completed:
-- Set up initial project structure
-- Added database migration system
-- Enhanced CLAUDE.md for better project memory
-
-Important context:
-- The database schema is designed to be extendable with custom fields
-- The migration system supports both direct SQL and Alembic approaches
-- The key entity relationships are: Projects -> Items (one-to-many)
-
-Next steps:
-- Implement user authentication system
-- Add more comprehensive test coverage
-- Create API documentation
-```
 
 ## Required Checks Before Completion
 
@@ -221,7 +198,7 @@ Before considering a task complete, ensure:
 3. Documentation is updated
 4. Type hints are properly applied
 5. Code passes linting and type checking
-6. **This CLAUDE.md file is updated with task status and changes**
+6. This CLAUDE.md file is updated with task status and changes
 
 ## Resources and References
 
