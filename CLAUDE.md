@@ -2,6 +2,37 @@
 
 This document helps Claude Code effectively work with this codebase and maintain context between sessions.
 
+## IMPORTANT INSTRUCTIONS FOR CLAUDE AGENTS
+
+**ALWAYS UPDATE THIS FILE DURING AND AFTER EACH SESSION!**
+
+1. **Continuous Updates**: Update this file as you work, not just at the end of a session
+2. **Task Status**: Mark tasks as in-progress when you start them, completed when done
+3. **Context Recording**: Document any important discoveries or decisions made
+4. **Change Logging**: Record all significant changes you make to the codebase
+5. **Branch Awareness**: Note which branch you're working on and what's happening on other branches
+
+If you are about to run out of context or end a session:
+- Ensure this file reflects all current tasks and their status
+- Document any partial progress on incomplete tasks
+- Note any important context that would help the next agent continue your work
+
+## Branch Coordination
+
+Current active branches:
+- `main`: Primary stable branch (production-ready code)
+- Example: `feature/user-auth`: User authentication implementation (in progress)
+
+### Multi-Agent Coordination
+
+If multiple Claude agents are working on this project:
+1. Always specify which branch you're working on at the start of your work
+2. Before creating a new branch, check this file for existing branches
+3. When merging branches, update this file to reflect the merged state
+4. Document branch dependencies (e.g., "branch X depends on branch Y")
+
+*Note to Claude: Keep this branch list updated. Add new branches when created, remove branches when deleted or merged.*
+
 ## Project Structure
 
 This is a FastAPI-based Python API template with the following key components:
@@ -81,19 +112,39 @@ If you encounter issues:
 - [ ] Example task: Implement rate limiting middleware
 - [ ] Example task: Create API documentation with examples
 
-*Note to Claude: When tasks are completed, mark them as [x] and move them to the "Recently Completed" section with the date completed.*
+*Note to Claude: Update this section continuously as you work. Use these status markers:*
+- *[ ] Task not started*
+- *[~] Task in progress (add notes on current status)*
+- *[x] Task completed (add completion date)*
 
 ### Recently Completed
 
 - [x] Initial project setup and repository creation (2024-06-20)
 - [x] Added database migration structure (2024-06-20)
 - [x] Added development configuration files (2024-06-20)
+- [x] Enhanced CLAUDE.md with task tracking and project memory (2024-06-20)
 
 ### Backlog
 
 - [ ] Example task: Set up Docker Compose for development
 - [ ] Example task: Add health check endpoint with database connectivity test
 - [ ] Example task: Implement caching layer
+
+### In-Progress Work Details
+
+*Note to Claude: When a task is complex and in progress, provide details here to help continue the work between sessions.*
+
+Example in-progress task details:
+```
+Task: Add user authentication system
+Branch: feature/user-auth
+Status: [~] In progress
+Current state:
+- JWT token generation is implemented
+- Password hashing is implemented
+- Need to implement token validation middleware
+- Need to add user registration endpoint
+```
 
 ## Change History
 
@@ -103,10 +154,11 @@ If you encounter issues:
 - Added database migration system with schema and functions directories
 - Added Alembic integration
 - Added Claude Code support files and development configuration
+- Enhanced CLAUDE.md with task tracking, change history, and project context
 
 ### Future changes will be logged here...
 
-*Note to Claude: When making significant changes, add an entry here with the date and a bullet list of changes made.*
+*Note to Claude: When making significant changes, add an entry here with the date and a bullet list of changes made. If changes are part of a specific task, reference the task.*
 
 ## Project Context
 
@@ -134,7 +186,31 @@ If you encounter issues:
 - **Clean Architecture**: Separation of concerns between layers
 - **Migration Strategy**: Both SQL scripts for direct application and Alembic for versioning
 
-*Note to Claude: Update this section as you learn more about the project or when architectural decisions are made.*
+*Note to Claude: Update this section as you learn more about the project or when architectural decisions are made. Document the reasoning behind decisions, not just the decisions themselves.*
+
+## Session Continuity Notes
+
+*Note to Claude: Use this section to leave notes for your future self or other agents. Include any context that would be helpful for continuing work on the project.*
+
+Example session note:
+```
+Session: 2024-06-20
+Branch: main
+Work completed:
+- Set up initial project structure
+- Added database migration system
+- Enhanced CLAUDE.md for better project memory
+
+Important context:
+- The database schema is designed to be extendable with custom fields
+- The migration system supports both direct SQL and Alembic approaches
+- The key entity relationships are: Projects -> Items (one-to-many)
+
+Next steps:
+- Implement user authentication system
+- Add more comprehensive test coverage
+- Create API documentation
+```
 
 ## Required Checks Before Completion
 
@@ -145,6 +221,7 @@ Before considering a task complete, ensure:
 3. Documentation is updated
 4. Type hints are properly applied
 5. Code passes linting and type checking
+6. **This CLAUDE.md file is updated with task status and changes**
 
 ## Resources and References
 
